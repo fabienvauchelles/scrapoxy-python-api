@@ -13,7 +13,7 @@ You can change the delay with WAIT_FOR_SCALE parameters (120 seconds by default)
 
 # -*- coding: utf-8 -*-
 
-from common.commander import Commander
+from scrapoxy.commander import Commander
 from scrapy import signals
 
 import logging
