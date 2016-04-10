@@ -7,4 +7,4 @@ Latest news are on [Scrapoxy.io](http://scrapoxy.io)!
 
 ## Documentation
 
-Documentation is on [ReadTheDocs](http://scrapoxy.readthedocs.org).
+Documentation is a [Scrapoxy.io](http://docs.scrapoxy.io).
