@@ -1,14 +1,18 @@
-from distutils.core import setup
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup, find_packages
+
 
 setup(
     name='scrapoxy',
-    packages=['scrapoxy'],
-    version='1.3',
-    description='Python API for Scrapoxy and Scrapy',
+    packages=find_packages(),
+    version='1.4',
+    description='Use Scrapoxy with Scrapy',
     author='Fabien Vauchelles',
     author_email='fabien@vauchelles.com',
     url='https://github.com/fabienvauchelles/scrapoxy-python-api',
-    download_url='https://github.com/fabienvauchelles/scrapoxy-python-api/tarball/1.3',
-    keywords=['scrapoxy', 'scrapy', 'scraper', 'scraping'],
+    download_url='https://github.com/fabienvauchelles/scrapoxy-python-api/tarball/1.4',
+    keywords=['crawler', 'crawling', 'scrapoxy', 'scrapy', 'scraper', 'scraping'],
     classifiers=[],
 )
