@@ -3,4 +3,3 @@ setup.cfg
 setup.py
 scrapoxy/__init__.py
 scrapoxy/commander.py
-scrapoxy/scrapy_middlewares.py
