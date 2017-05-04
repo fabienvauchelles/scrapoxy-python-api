@@ -58,7 +58,7 @@ class BlacklistDownloaderMiddleware(object):
         """
         try:
             if response.status in self._http_status_codes:
-                raise BlacklistError(response, u'HTTP status '.format(response.status))
+                raise BlacklistError(response, u'HTTP status {}'.format(response.status))
 
             return response
 
