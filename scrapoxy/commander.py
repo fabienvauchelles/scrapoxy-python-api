@@ -13,7 +13,7 @@ class Commander:
 
     def __init__(self, api, password):
         self._api = api
-        self._password = base64.b64encode(password)
+        self._password = base64.b64encode(password.encode())
 
 
     def get_instances(self):
