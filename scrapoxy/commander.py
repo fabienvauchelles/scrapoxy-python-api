@@ -13,7 +13,7 @@ class Commander:
 
     def __init__(self, api, password):
         self._api = api
-        self._password = base64.b64encode(password.encode())
+        self._password = base64.b64encode(password)
 
 
     def get_instances(self):
@@ -28,7 +28,7 @@ class Commander:
         r = requests.get(u'{0}/instances'.format(self._api), headers=headers)
 
         if r.status_code == 200:
-            return json.loads(r.content)
+            return r.json()
 
         else:
             r.raise_for_status()
@@ -54,7 +54,7 @@ class Commander:
             return -1
 
         elif r.status_code == 200:
-            result = json.loads(r.content)
+            result = r.json()
             return result['alive']
 
         else:
@@ -73,7 +73,7 @@ class Commander:
         r = requests.get(u'{0}/scaling'.format(self._api), headers=headers)
 
         if r.status_code == 200:
-            result = json.loads(r.content)
+            result = r.json()
             return result['min'], result['required'], result['max']
 
         else:
@@ -122,7 +122,7 @@ class Commander:
         r = requests.get(u'{0}/config'.format(self._api), headers=headers)
 
         if r.status_code == 200:
-            return json.loads(r.content)
+            return r.json()
 
         else:
             r.raise_for_status()
