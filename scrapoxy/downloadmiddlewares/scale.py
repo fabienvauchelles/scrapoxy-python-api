@@ -13,6 +13,7 @@ You can change the delay with WAIT_FOR_SCALE parameters (120 seconds by default)
 
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
 from scrapoxy.commander import Commander
 from scrapy import signals
 
@@ -40,19 +41,19 @@ class ScaleMiddleware(object):
 
 
     def spider_opened(self, spider):
-        spider.logger.debug(u'[ScaleMiddleware] Upscale Scrapoxy')
+        spider.logger.debug('[ScaleMiddleware] Upscale Scrapoxy')
 
         min_sc, required_sc, max_sc = self._commander.get_scaling()
         required_sc = max_sc
 
         self._commander.update_scaling(min_sc, required_sc, max_sc)
 
-        spider.log(u'[ScaleMiddleware] Sleeping {0} seconds to finish upscale'.format(self._WAIT_FOR_SCALE), level=logging.WARNING)
+        spider.log('[ScaleMiddleware] Sleeping {0} seconds to finish upscale'.format(self._WAIT_FOR_SCALE), level=logging.WARNING)
         time.sleep(self._WAIT_FOR_SCALE)
 
 
     def spider_closed(self, spider):
-        spider.logger.debug(u'[ScaleMiddleware] Downscale Scrapoxy')
+        spider.logger.debug('[ScaleMiddleware] Downscale Scrapoxy')
 
         min_sc, required_sc, max_sc = self._commander.get_scaling()
         required_sc = min_sc

@@ -9,6 +9,7 @@ BLACKLIST_HTTP_STATUS_CODES with the list of blacklisted HTTP codes
 
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
 from scrapy.exceptions import IgnoreRequest
 from scrapoxy.commander import Commander
 
@@ -58,12 +59,12 @@ class BlacklistDownloaderMiddleware(object):
         """
         try:
             if response.status in self._http_status_codes:
-                raise BlacklistError(response, u'HTTP status {}'.format(response.status))
+                raise BlacklistError(response, 'HTTP status {}'.format(response.status))
 
             return response
 
         except BlacklistError as ex:
-            spider.log(u'Ignoring Blacklisted response {0}: {1}'.format(response.url, ex.message), level=logging.DEBUG)
+            spider.log('Ignoring Blacklisted response {0}: {1}'.format(response.url, ex.message), level=logging.DEBUG)
 
             name = response.headers['x-cache-proxyname'].decode('utf-8')
             self._stop_and_sleep(spider, name)
@@ -75,14 +76,14 @@ class BlacklistDownloaderMiddleware(object):
         if name:
             alive = self._commander.stop_instance(name)
             if alive < 0:
-                spider.log(u'Remove: cannot find instance {}'.format(name), level=logging.ERROR)
+                spider.log('Remove: cannot find instance {}'.format(name), level=logging.ERROR)
             elif alive == 0:
-                spider.log(u'Remove: instance removed (no instance remaining)', level=logging.WARNING)
+                spider.log('Remove: instance removed (no instance remaining)', level=logging.WARNING)
             else:
-                spider.log(u'Remove: instance removed ({} instances remaining)'.format(alive), level=logging.DEBUG)
+                spider.log('Remove: instance removed ({} instances remaining)'.format(alive), level=logging.DEBUG)
         else:
-            spider.log(u'Cannot find instance name in headers', level=logging.ERROR)
+            spider.log('Cannot find instance name in headers', level=logging.ERROR)
 
         delay = random.randrange(self._sleep_min, self._sleep_max)
-        spider.log(u'Sleeping {} seconds'.format(delay), level=logging.INFO)
+        spider.log('Sleeping {} seconds'.format(delay), level=logging.INFO)
         time.sleep(delay)

@@ -4,6 +4,8 @@ An SDK to wrap REST request over Scrapoxy API.
 
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import base64
 import requests
 

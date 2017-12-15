@@ -6,6 +6,8 @@ You can change the delay with WAIT_FOR_START parameters (120 seconds by default)
 
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import logging
 import time
 
@@ -25,7 +27,7 @@ class WaitMiddleware(object):
         if response.status != 407:
             return response
 
-        spider.log(u'[WaitMiddleware] Sleeping {0} seconds because no proxy is found: {1}'.format(self._WAIT_FOR_START, response.body), level=logging.WARNING)
+        spider.log('[WaitMiddleware] Sleeping {0} seconds because no proxy is found: {1}'.format(self._WAIT_FOR_START, response.text), level=logging.WARNING)
         time.sleep(self._WAIT_FOR_START)
 
         return request.replace(
