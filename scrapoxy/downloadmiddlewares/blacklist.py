@@ -65,7 +65,7 @@ class BlacklistDownloaderMiddleware(object):
         except BlacklistError as ex:
             spider.log(u'Ignoring Blacklisted response {0}: {1}'.format(response.url, ex.message), level=logging.DEBUG)
 
-            name = response.headers.get(u'x-cache-proxyname')
+            name = response.headers['x-cache-proxyname'].decode('utf-8')
             self._stop_and_sleep(spider, name)
 
             raise IgnoreRequest()
