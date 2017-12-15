@@ -23,7 +23,8 @@ class ProxyMiddleware(object):
             parts = re.match(r'(\w+://)(\w+:\w+@)?(.+)', proxy)
 
             if parts.group(2):
-                self._proxy_auth = u'Basic ' + base64.encodestring(parts.group(2)[:-1].encode()).decode().strip()
+                proxy_auth = parts.group(2)[:-1].encode().decode().strip()
+                self._proxy_auth = 'Basic {}'.format(base64.b64encode(proxy_auth.encode('ascii')).decode('ascii'))
 
             self._proxy = parts.group(1) + parts.group(3)
 
