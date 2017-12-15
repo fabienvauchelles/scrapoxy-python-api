@@ -12,7 +12,9 @@ class Commander:
 
     def __init__(self, api, password):
         self._api = api
-        self._password = base64.b64encode(password)
+        self._headers = {
+            'Authorization': base64.b64encode(password.encode('ascii')),
+        }
 
 
     def get_instances(self):
@@ -20,11 +22,7 @@ class Commander:
         :return: All instances
         """
 
-        headers = {
-            'Authorization': self._password,
-        }
-
-        r = requests.get(u'{0}/instances'.format(self._api), headers=headers)
+        r = requests.get('{0}/instances'.format(self._api), headers=self._headers)
 
         if r.status_code == 200:
             return r.json()
@@ -39,15 +37,11 @@ class Commander:
         :return: The count of alive instances or -1 if the instance doesn't exist.
         """
 
-        headers = {
-            'Authorization': self._password,
-        }
-
         payload = {
             'name': name
         }
 
-        r = requests.post(u'{0}/instances/stop'.format(self._api), headers=headers, json=payload)
+        r = requests.post('{0}/instances/stop'.format(self._api), headers=self._headers, json=payload)
 
         if r.status_code == 404:
             return -1
@@ -65,11 +59,7 @@ class Commander:
         :return: min, required, max
         """
 
-        headers = {
-            'Authorization': self._password,
-        }
-
-        r = requests.get(u'{0}/scaling'.format(self._api), headers=headers)
+        r = requests.get('{0}/scaling'.format(self._api), headers=self._headers)
 
         if r.status_code == 200:
             result = r.json()
@@ -87,17 +77,13 @@ class Commander:
         :return: True if the scaling is updated or False if the scaling is the same.
         """
 
-        headers = {
-            'Authorization': self._password,
-        }
-
         payload = {
             'min': min_sc,
             'required': required_sc,
             'max': max_sc,
         }
 
-        r = requests.patch(u'{0}/scaling'.format(self._api), headers=headers, json=payload)
+        r = requests.patch('{0}/scaling'.format(self._api), headers=self._headers, json=payload)
 
         if r.status_code == 204:
             return False
@@ -114,11 +100,7 @@ class Commander:
         :return: Configuration
         """
 
-        headers = {
-            'Authorization': self._password,
-        }
-
-        r = requests.get(u'{0}/config'.format(self._api), headers=headers)
+        r = requests.get('{0}/config'.format(self._api), headers=self._headers)
 
         if r.status_code == 200:
             return r.json()
@@ -133,11 +115,7 @@ class Commander:
         :return: True if the configuration is updated or False if the configuration is the same.
         """
 
-        headers = {
-            'Authorization': self._password,
-        }
-
-        r = requests.patch(u'{0}/config'.format(self._api), headers=headers, json=newconfig)
+        r = requests.patch('{0}/config'.format(self._api), headers=self._headers, json=newconfig)
 
         if r.status_code == 204:
             return False
